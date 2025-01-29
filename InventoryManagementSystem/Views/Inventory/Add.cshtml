@@ -1,5 +1,21 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Add Item - SmartStock";
 }
+
+<h1>Add New Item</h1>
+
+<form method="post" action="@Url.Action("Add", "Inventory")">
+    <div class="form-group">
+        <label for="Name">Item Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" required />
+    </div>
+    <div class="form-group">
+        <label for="Quantity">Quantity</label>
+        <input type="number" class="form-control" id="Quantity" name="Quantity" required />
+    </div>
+    <div class="form-group">
+        <label for="Price">Price</label>
+        <input type="number" class="form-control" id="Price" name="Price" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Save Item</button>
+</form>
