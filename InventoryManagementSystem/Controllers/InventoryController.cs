@@ -58,16 +58,19 @@ namespace InventoryManagementSystem.Controllers
         }
 
         // DELETE: Show confirmation page
-        public IActionResult Delete(int id)
-        {
-            var item = inventoryList.FirstOrDefault(i => i.Id == id);
-            if (item == null) return NotFound();
-            return View(item);
-        }
+public IActionResult Delete(int id)
+{
+    var item = inventoryList.FirstOrDefault(i => i.Id == id);
+    if (item == null)
+    {
+        return NotFound();
+    }
+    return View(item);
+}
 
         // DELETE: Handle deletion
         [HttpPost]
-        public IActionResult ConfirmDelete(int id)
+        public IActionResult Delete(int id, IFormCollection form)
         {
             var item = inventoryList.FirstOrDefault(i => i.Id == id);
             if (item != null)
