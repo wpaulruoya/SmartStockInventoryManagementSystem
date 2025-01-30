@@ -1,18 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using InventoryManagementSystem.Models;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagementSystem.Controllers
 {
     public class UserController : Controller
     {
-        // GET: /User/Login
-        public IActionResult Login()
+        private readonly AppDbContext _context;
+
+        public UserController(AppDbContext context)
         {
-            return View();
+            _context = context;
         }
 
         // GET: /User/Register
         public IActionResult Register()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                // Check if the email already exists
+                var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("", "Email already exists.");
+                    return View();
+                }
+
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();  // ✅ FIXED ERROR: Now recognized
+
+                return RedirectToAction("Login");
+            }
+
             return View();
         }
     }

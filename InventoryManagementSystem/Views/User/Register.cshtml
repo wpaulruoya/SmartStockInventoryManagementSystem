@@ -24,3 +24,10 @@
 
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
+
+@if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
+{
+    <div class="alert alert-danger">
+        @ViewData["ErrorMessage"]
+    </div>
+}
