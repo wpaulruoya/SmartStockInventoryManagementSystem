@@ -13,7 +13,10 @@ namespace InventoryManagementSystem.Controllers
         {
             _context = context;
         }
-
+        public IActionResult Login()
+        {
+            return View(); // This should match "/Views/User/Login.cshtml"
+        }
         // GET: /User/Register
         public IActionResult Register()
         {
