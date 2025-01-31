@@ -29,16 +29,21 @@ namespace InventoryManagementSystem.Controllers
 
 
         [HttpPost]
+        [HttpPost]
+        [HttpPost]
         public IActionResult Authenticate(User user)
         {
-            var existingUser = _context.Users.FirstOrDefault(u => u.Email == user.Email && u.PasswordHash == user.PasswordHash);
-            if (existingUser != null)
+            var existingUser = _context.Users.FirstOrDefault(u => u.Email == user.Email);
+
+            if (existingUser == null || existingUser.PasswordHash != user.PasswordHash)
             {
-                return RedirectToAction("Home", "Home");
+                ViewData["ErrorMessage"] = "Invalid email or password.";
+                return View("~/Views/User/Login.cshtml"); // ✅ Correct path
             }
 
-            ViewBag.Error = "Invalid email or password.";
-            return View("Index");
+            return RedirectToAction("Home", "Home"); // Redirects to Home if login is successful
         }
+
+
     }
 }

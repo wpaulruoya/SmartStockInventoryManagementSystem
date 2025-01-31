@@ -93,13 +93,13 @@
 <body>
     <div class="auth-container">
         <h2>Login</h2>
-
         @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
         {
             <div class="alert">
                 @ViewData["ErrorMessage"]
             </div>
         }
+
 
         <form method="post" asp-controller="Login" asp-action="Authenticate">
             <div class="form-group">
