@@ -1,4 +1,5 @@
-﻿using InventoryManagementSystem.Models;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using InventoryManagementSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,17 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // ✅ Register EF Core with MySQL
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+// ✅ Add Authentication and Authorization
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Index";  // Redirect if user is not authenticated
+        options.LogoutPath = "/Login/Logout"; // Logout path
+        options.AccessDeniedPath = "/Home/Index"; // Redirect if unauthorized
+    });
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddControllersWithViews();
 
@@ -24,6 +36,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseAuthentication(); // ✅ Make sure this line is added
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using InventoryManagementSystem.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace InventoryManagementSystem.Controllers
 {
@@ -17,6 +19,14 @@ namespace InventoryManagementSystem.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home"); // Redirect to Index.cshtml after logout
+        }
+
 
         [HttpPost]
         public IActionResult Authenticate(User user)
