@@ -5,30 +5,134 @@
     Layout = null; // Disable layout to hide title bar
 }
 
-<h2>Register</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-<form method="post">
-    <div class="form-group">
-        <label for="Name">Name</label>
-        <input type="text" class="form-control" id="Name" name="Name" required />
+        .auth-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+            .form-group label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .guidelines {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .redirect-text {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+            .redirect-text a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                .redirect-text a:hover {
+                    text-decoration: underline;
+                }
+
+        .alert {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Register</h2>
+
+        @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
+        {
+            <div class="alert">
+                @ViewData["ErrorMessage"]
+            </div>
+        }
+
+        <form method="post">
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" id="Name" name="Name" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="email" class="form-control" id="Email" name="Email" required />
+                <p class="guidelines">Use a valid email format: example@domain.com</p>
+            </div>
+
+            <div class="form-group">
+                <label for="PasswordHash">Password</label>
+                <input type="password" class="form-control" id="PasswordHash" name="PasswordHash" required />
+                <p class="guidelines">
+                    Password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.
+                </p>
+            </div>
+
+            <button type="submit" class="btn-primary">Register</button>
+        </form>
+
+        <p class="redirect-text">
+            Already have an account? <a href="@Url.Action("Login", "User")">Login here</a>
+        </p>
     </div>
-
-    <div class="form-group">
-        <label for="Email">Email</label>
-        <input type="email" class="form-control" id="Email" name="Email" required />
-    </div>
-
-    <div class="form-group">
-        <label for="PasswordHash">Password</label>
-        <input type="password" class="form-control" id="PasswordHash" name="PasswordHash" required />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
-
-@if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
-{
-    <div class="alert alert-danger">
-        @ViewData["ErrorMessage"]
-    </div>
-}
+</body>
+</html>
