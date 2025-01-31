@@ -2,13 +2,65 @@
     ViewData["Title"] = "Home - SmartStock";
 }
 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+        margin-top: 20px;
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: #555;
+    }
+
+    nav {
+        background-color: #007bff;
+        padding: 15px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+            nav ul li {
+                display: inline;
+            }
+
+                nav ul li a {
+                    text-decoration: none;
+                    color: white;
+                    font-size: 1.1rem;
+                    padding: 10px 15px;
+                    border-radius: 5px;
+                    transition: background 0.3s ease;
+                }
+
+                    nav ul li a:hover {
+                        background-color: #0056b3;
+                    }
+</style>
+
 <h1>Welcome to SmartStock</h1>
 <p>This is the home page of your inventory management system.</p>
 
 <nav>
     <ul>
-        <li><a href="@Url.Action("Home", "Home")">Home</a></li> <!-- Link to Home page -->
-        <li><a href="@Url.Action("About", "Home")">About</a></li> <!-- Link to About page (ensure it exists) -->
-        <li><a href="@Url.Action("Index", "Inventory")">Inventory</a></li> <!-- Link to Inventory page -->
+        <li><a href="@Url.Action("Home", "Home")">Home</a></li>
+        <li><a href="@Url.Action("About", "Home")">About</a></li>
+        <li><a href="@Url.Action("Index", "Inventory")">Inventory</a></li>
     </ul>
 </nav>
