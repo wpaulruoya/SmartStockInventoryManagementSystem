@@ -5,16 +5,117 @@
     Layout = null; // Disable layout to hide title bar
 }
 
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-<form method="post" asp-controller="Login" asp-action="Authenticate">
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="Email" required>
+        .auth-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+            .form-group label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .redirect-text {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+            .redirect-text a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                .redirect-text a:hover {
+                    text-decoration: underline;
+                }
+
+        .alert {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Login</h2>
+
+        @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString()))
+        {
+            <div class="alert">
+                @ViewData["ErrorMessage"]
+            </div>
+        }
+
+        <form method="post" asp-controller="Login" asp-action="Authenticate">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="Email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="PasswordHash" required>
+            </div>
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+
+        <p class="redirect-text">
+            Don't have an account? <a href="@Url.Action("Register", "User")">Register here</a>
+        </p>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="PasswordHash" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+</body>
+</html>
